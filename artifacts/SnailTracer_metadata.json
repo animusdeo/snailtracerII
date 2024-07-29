@@ -1,0 +1,156 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "Benchmark",
+				"outputs": [
+					{
+						"internalType": "int256",
+						"name": "r",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "g",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "b",
+						"type": "int256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int256",
+						"name": "spp",
+						"type": "int256"
+					}
+				],
+				"name": "TraceImage",
+				"outputs": [
+					{
+						"internalType": "int256[]",
+						"name": "",
+						"type": "int256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int256",
+						"name": "x",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "y",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "spp",
+						"type": "int256"
+					}
+				],
+				"name": "TracePixel",
+				"outputs": [
+					{
+						"internalType": "int256",
+						"name": "r",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "g",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "b",
+						"type": "int256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int256",
+						"name": "y",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "spp",
+						"type": "int256"
+					}
+				],
+				"name": "TraceScanline",
+				"outputs": [
+					{
+						"internalType": "int256[]",
+						"name": "",
+						"type": "int256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"snailtracer.sol": "SnailTracer"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"snailtracer.sol": {
+			"keccak256": "0xc14438a8e55d2ca50a854fcc66521904c83ce3d1e5a33100c26fb7ec81333d19",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://c4aa89562f984b3f676a46fcd073ebe947dc782b5b9e54053fde09536c5f50f5",
+				"dweb:/ipfs/Qmdvbcpr3wfkvrBRgVa82bG6DiKn3XWKrSyFNG5dFx6PXT"
+			]
+		}
+	},
+	"version": 1
+}
