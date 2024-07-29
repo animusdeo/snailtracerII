@@ -1,0 +1,53 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Vector3D.sol": "Vector3D"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Vector3D.sol": {
+			"keccak256": "0x6bb2ab486b6fb6d58fb5d2bf058b12e95f6164f13c96292682a5915beac67c4a",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://16798e5cbdde523cd3f0b696012d1ba65347b76e657037442f0c813a1a652464",
+				"dweb:/ipfs/QmVqgsEyCR93ykPUy7XNiCSGmk2eoLD958GeypuM2mWKGG"
+			]
+		},
+		"abdk-libraries-solidity/ABDKMath64x64.sol": {
+			"keccak256": "0x1364fdc24192b982f647c7fc68dcb2f6fc1b5e201843e773144bd23a76cb3b97",
+			"license": "BSD-4-Clause",
+			"urls": [
+				"bzz-raw://490712cc07db32f274899b17aade9c975f06010848c21500b8a5ead6898e09c7",
+				"dweb:/ipfs/QmZMPKjDgwCFSGdLWJW6g5E7hDLByA9hNjXzAwJ4GKTZvN"
+			]
+		}
+	},
+	"version": 1
+}

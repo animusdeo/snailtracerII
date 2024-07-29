@@ -11,105 +11,19 @@
 				"type": "constructor"
 			},
 			{
-				"inputs": [],
-				"name": "Benchmark",
-				"outputs": [
-					{
-						"internalType": "int256",
-						"name": "r",
-						"type": "int256"
-					},
-					{
-						"internalType": "int256",
-						"name": "g",
-						"type": "int256"
-					},
-					{
-						"internalType": "int256",
-						"name": "b",
-						"type": "int256"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int128",
 						"name": "spp",
-						"type": "int256"
+						"type": "int128"
 					}
 				],
-				"name": "TraceImage",
+				"name": "render",
 				"outputs": [
 					{
-						"internalType": "int256[]",
+						"internalType": "int128[]",
 						"name": "",
-						"type": "int256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "int256",
-						"name": "x",
-						"type": "int256"
-					},
-					{
-						"internalType": "int256",
-						"name": "y",
-						"type": "int256"
-					},
-					{
-						"internalType": "int256",
-						"name": "spp",
-						"type": "int256"
-					}
-				],
-				"name": "TracePixel",
-				"outputs": [
-					{
-						"internalType": "int256",
-						"name": "r",
-						"type": "int256"
-					},
-					{
-						"internalType": "int256",
-						"name": "g",
-						"type": "int256"
-					},
-					{
-						"internalType": "int256",
-						"name": "b",
-						"type": "int256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "int256",
-						"name": "y",
-						"type": "int256"
-					},
-					{
-						"internalType": "int256",
-						"name": "spp",
-						"type": "int256"
-					}
-				],
-				"name": "TraceScanline",
-				"outputs": [
-					{
-						"internalType": "int256[]",
-						"name": "",
-						"type": "int256[]"
+						"type": "int128[]"
 					}
 				],
 				"stateMutability": "view",
@@ -137,18 +51,43 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
-		"remappings": []
+		"remappings": [],
+		"viaIR": true
 	},
 	"sources": {
-		"snailtracer.sol": {
-			"keccak256": "0xc14438a8e55d2ca50a854fcc66521904c83ce3d1e5a33100c26fb7ec81333d19",
+		"Math.sol": {
+			"keccak256": "0x269f024028b1a0c4708b7ec491d728dd6867d3bf0f244c7ba55172ffeb878cce",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://c4aa89562f984b3f676a46fcd073ebe947dc782b5b9e54053fde09536c5f50f5",
-				"dweb:/ipfs/Qmdvbcpr3wfkvrBRgVa82bG6DiKn3XWKrSyFNG5dFx6PXT"
+				"bzz-raw://5d28e439e5daf6d485e28f7730f8bc14dccb4fc2a70413b5d9a7bf3dbd2457eb",
+				"dweb:/ipfs/QmZhjbzwX1GJ7wLGuPdeHSyys5AY54ayGjm6tDkENB7rmQ"
+			]
+		},
+		"Vector3D.sol": {
+			"keccak256": "0x6bb2ab486b6fb6d58fb5d2bf058b12e95f6164f13c96292682a5915beac67c4a",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://16798e5cbdde523cd3f0b696012d1ba65347b76e657037442f0c813a1a652464",
+				"dweb:/ipfs/QmVqgsEyCR93ykPUy7XNiCSGmk2eoLD958GeypuM2mWKGG"
+			]
+		},
+		"abdk-libraries-solidity/ABDKMath64x64.sol": {
+			"keccak256": "0x1364fdc24192b982f647c7fc68dcb2f6fc1b5e201843e773144bd23a76cb3b97",
+			"license": "BSD-4-Clause",
+			"urls": [
+				"bzz-raw://490712cc07db32f274899b17aade9c975f06010848c21500b8a5ead6898e09c7",
+				"dweb:/ipfs/QmZMPKjDgwCFSGdLWJW6g5E7hDLByA9hNjXzAwJ4GKTZvN"
+			]
+		},
+		"snailtracer.sol": {
+			"keccak256": "0x0cece72b842ea9cb9b4098aabf5550f11dfe921da0cea5e268673e5f818ac1ee",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://d439a0e255eaed0c9c59c19fb2f73f50ab47e9cad2f94c288c842b15dde3b5a3",
+				"dweb:/ipfs/QmfJHQPyH5BY8NEGy9vhdwxkAa7ni9we6i3dRHkosYyu2U"
 			]
 		}
 	},
