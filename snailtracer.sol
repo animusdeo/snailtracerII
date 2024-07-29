@@ -6,8 +6,8 @@ import "./Vector3D.sol"; // Assuming Vector3D is in the same directory
 contract SnailTracer {
     using Vector3D for Vector3D.Vector;
 
-    int128 constant width = ABDKMath64x64.fromInt(1280);
-    int128 constant height = ABDKMath64x64.fromInt(720);
+    int128 width = ABDKMath64x64.fromInt(1280);
+    int128 height = ABDKMath64x64.fromInt(720);
     int128[] buffer;
 
     Ray camera;
@@ -63,7 +63,7 @@ contract SnailTracer {
     }
 
     function render(int128 spp) public view returns (int128[] memory) {
-        int128[] memory imageBuffer = new int128[](int128(width) * int128(height) * 3);
+        int128[] memory imageBuffer = new int128[](uint256(uint128(width)) * uint256(uint128(height)) * 3);
         uint256 index = 0;
         for (int128 y = height - 1; y >= 0; y--) {
             for (int128 x = 0; x < width; x++) {
@@ -82,17 +82,27 @@ contract SnailTracer {
     function trace(int128 x, int128 y, int128 spp) internal view returns (Vector3D.Vector memory color) {
         delete color;
         for (int128 k = 0; k < spp; k++) {
-            Vector3D.Vector memory pixel = camera.direction.add(
-                deltaX.mul(ABDKMath64x64.div(ABDKMath64x64.fromInt(1000000 * x + rand() % 500000), width).sub(ABDKMath64x64.fromInt(500000))).add(
-                deltaY.mul(ABDKMath64x64.div(ABDKMath64x64.fromInt(1000000 * y + rand() % 500000), height).sub(ABDKMath64x64.fromInt(500000)))
-            );
-            Ray memory ray = Ray(
-                camera.origin.add(pixel.mul(ABDKMath64x64.fromInt(140))),
-                pixel.norm(),
-                0,
-                false
-            );
-            color = color.add(radiance(ray).div(spp));
+          Vector3D.Vector memory pixel = camera.direction.add(
+              deltaX.mul(
+                  ABDKMath64x64.sub(
+                      ABDKMath64x64.div(
+                          ABDKMath64x64.fromInt(ABDKMath64x64.toInt(ABDKMath64x64.mul(ABDKMath64x64.fromInt(1000000), x)) + rand() % 500000),
+                          width
+                      ),
+                      ABDKMath64x64.fromInt(500000)
+                  )
+              ).add(
+                  deltaY.mul(
+                      ABDKMath64x64.sub(
+                          ABDKMath64x64.div(
+                              ABDKMath64x64.fromInt(ABDKMath64x64.toInt(ABDKMath64x64.mul(ABDKMath64x64.fromInt(1000000), y)) + rand() % 500000),
+                              height
+                          ),
+                          ABDKMath64x64.fromInt(500000)
+                      )
+                  )
+              )
+          );
         }
         return color.mul(ABDKMath64x64.fromInt(255)).div(ABDKMath64x64.fromInt(1000000));
     }
@@ -123,22 +133,31 @@ contract SnailTracer {
 
     function intersect(Sphere memory s, Ray memory r) internal pure returns (int128) {
         Vector3D.Vector memory op = s.position.sub(r.origin);
-        int128 b = op.dot(r.direction).div(ABDKMath64x64.fromInt(1000000));
-        int128 det = b.mul(b).sub(op.dot(op).sub(s.radius.mul(s.radius)));
+        int128 b = ABDKMath64x64.div(op.dot(r.direction), ABDKMath64x64.fromInt(1000000));
+        int128 bSquare = ABDKMath64x64.mul(b, b);
+        int128 opDotOp = op.dot(op);
+        int128 radiusSquare = ABDKMath64x64.mul(s.radius, s.radius);
+        int128 det = ABDKMath64x64.sub(bSquare, ABDKMath64x64.sub(opDotOp, radiusSquare));
 
-        if (det < 0) {
+        if (det < ABDKMath64x64.fromInt(0)) {
             return ABDKMath64x64.fromInt(0);
         }
 
         det = ABDKMath64x64.sqrt(det);
-        if (b.sub(det) > ABDKMath64x64.fromInt(1000)) {
-            return b.sub(det);
+        int128 bMinusDet = ABDKMath64x64.sub(b, det);
+        int128 bPlusDet = ABDKMath64x64.add(b, det);
+        int128 threshold = ABDKMath64x64.fromInt(1000);
+
+        if (bMinusDet > threshold) {
+            return bMinusDet;
         }
-        if (b.add(det) > ABDKMath64x64.fromInt(1000)) {
-            return b.add(det);
+        if (bPlusDet > threshold) {
+            return bPlusDet;
         }
         return ABDKMath64x64.fromInt(0);
     }
+
+
 
     function radiance(Ray memory ray) internal view returns (Vector3D.Vector memory) {
         if (ray.depth > 10) {
@@ -147,7 +166,7 @@ contract SnailTracer {
 
         int128 dist;
         int128 id;
-        (dist, id) = traceray(ray);
+        (dist, , id) = traceray(ray);
         if (dist == 0) {
             return Vector3D.Vector(ABDKMath64x64.fromInt(0), ABDKMath64x64.fromInt(0), ABDKMath64x64.fromInt(0));
         }
@@ -212,9 +231,9 @@ contract SnailTracer {
 
     // traceray calculates the intersection of a ray with all the objects and
     // returns the closest one.
-    function traceray(Ray memory ray) internal view returns (int128, Primitive, int128) {
+    function traceray(Ray memory ray) internal view returns (int128, Sphere memory, int128) {
         int128 dist = ABDKMath64x64.fromInt(0);
-        Primitive p;
+        Sphere memory p;
         int128 id;
 
         // Intersect the ray with all the spheres
@@ -222,7 +241,7 @@ contract SnailTracer {
             int128 d = intersect(spheres[i], ray);
             if (ABDKMath64x64.cmp(d, ABDKMath64x64.fromInt(0)) > 0 && (ABDKMath64x64.cmp(dist, ABDKMath64x64.fromInt(0)) == 0 || ABDKMath64x64.cmp(d, dist) < 0)) {
                 dist = d;
-                p = Primitive.Sphere;
+                p = Sphere;
                 id = ABDKMath64x64.fromUInt(i);
             }
         }
