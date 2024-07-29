@@ -62,7 +62,7 @@ contract SnailTracer {
         ));
     }
 
-    function TraceImage(int128 spp) public view returns (int128[] memory) {
+    function render(int128 spp) public view returns (int128[] memory) {
         int128[] memory imageBuffer = new int128[](int128(width) * int128(height) * 3);
         uint256 index = 0;
         for (int128 y = height - 1; y >= 0; y--) {
@@ -182,7 +182,7 @@ contract SnailTracer {
         }
         return diffuse(ray, intersect, normal);
     }
-    
+
     function diffuse(Ray memory ray, Vector3D.Vector memory intersect, Vector3D.Vector memory normal) internal view returns (Vector3D.Vector memory) {
         // Generate a random angle and distance from center
         int128 r1 = ABDKMath64x64.div(ABDKMath64x64.mul(ABDKMath64x64.fromInt(6283184), rand()), ABDKMath64x64.fromUInt(1000000));
