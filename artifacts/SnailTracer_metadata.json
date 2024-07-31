@@ -32,12 +32,28 @@
 		],
 		"devdoc": {
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"constructor": {
+					"details": "Initializes the contract with specified screen dimensions and camera parameters."
+				},
+				"render(int128)": {
+					"params": {
+						"spp": "Samples per pixel."
+					},
+					"returns": {
+						"_0": "An array representing the rendered image."
+					}
+				}
+			},
 			"version": 1
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"render(int128)": {
+					"notice": "Renders the scene with the specified samples per pixel (spp)."
+				}
+			},
 			"version": 1
 		}
 	},
@@ -83,11 +99,11 @@
 			]
 		},
 		"snailtracer.sol": {
-			"keccak256": "0x0cece72b842ea9cb9b4098aabf5550f11dfe921da0cea5e268673e5f818ac1ee",
+			"keccak256": "0x6dc7e75c6f7edb506bea7f9d6a37c025c25e5b4ef107691f79be8ba70f42dc22",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://d439a0e255eaed0c9c59c19fb2f73f50ab47e9cad2f94c288c842b15dde3b5a3",
-				"dweb:/ipfs/QmfJHQPyH5BY8NEGy9vhdwxkAa7ni9we6i3dRHkosYyu2U"
+				"bzz-raw://a49d892fb7e57a89bb3217c1e9cc30e1009332f6106c6294fc35f5f81a6aecb8",
+				"dweb:/ipfs/QmRDAZDTvQA9p3HhZn9qjXM9xc7LbJ1US8SnYRsFezCcAD"
 			]
 		}
 	},
