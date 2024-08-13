@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.26+commit.8a97fa7a"
+		"version": "0.8.16+commit.07a7930e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -45,7 +45,7 @@
 		"compilationTarget": {
 			"snailtracer.sol": "SnailTracer"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -59,19 +59,19 @@
 	},
 	"sources": {
 		"Math.sol": {
-			"keccak256": "0x269f024028b1a0c4708b7ec491d728dd6867d3bf0f244c7ba55172ffeb878cce",
+			"keccak256": "0x4d9a09340d838c9344512d2096c0d6cfb4a6c06f029a7f412ca9e01fcf1332b7",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://5d28e439e5daf6d485e28f7730f8bc14dccb4fc2a70413b5d9a7bf3dbd2457eb",
-				"dweb:/ipfs/QmZhjbzwX1GJ7wLGuPdeHSyys5AY54ayGjm6tDkENB7rmQ"
+				"bzz-raw://90a221e8b6c1705af7fb59c42f9ae240920465b041d89bb6a91aeefde35bc0f5",
+				"dweb:/ipfs/QmRe4sTKaTCBYGzfXXFkUk4JTATcrtNURmp7ucePUErdzG"
 			]
 		},
 		"Vector3D.sol": {
-			"keccak256": "0x6bb2ab486b6fb6d58fb5d2bf058b12e95f6164f13c96292682a5915beac67c4a",
+			"keccak256": "0x288e7b2df44fc7a1be89fb550094e32baa4241678211fd39066f0ec0bd8c4207",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://16798e5cbdde523cd3f0b696012d1ba65347b76e657037442f0c813a1a652464",
-				"dweb:/ipfs/QmVqgsEyCR93ykPUy7XNiCSGmk2eoLD958GeypuM2mWKGG"
+				"bzz-raw://dcfafdb3bd162814f842fc825267824ab299293b6380d04323f13de7c01fda31",
+				"dweb:/ipfs/QmUaMBaZxnPMVvrdAZKPnQYpi75gWLpPbqWgNrzdVbT41m"
 			]
 		},
 		"abdk-libraries-solidity/ABDKMath64x64.sol": {
@@ -83,11 +83,11 @@
 			]
 		},
 		"snailtracer.sol": {
-			"keccak256": "0x0cece72b842ea9cb9b4098aabf5550f11dfe921da0cea5e268673e5f818ac1ee",
+			"keccak256": "0x2eb37d9772143b3c66b86430b2e14665a1d8f49b4b45c988112e9f5ccc33d853",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://d439a0e255eaed0c9c59c19fb2f73f50ab47e9cad2f94c288c842b15dde3b5a3",
-				"dweb:/ipfs/QmfJHQPyH5BY8NEGy9vhdwxkAa7ni9we6i3dRHkosYyu2U"
+				"bzz-raw://c8e1d04cd788864731f193ea2474dd498c05ae71969f133c7caeb5b5827df043",
+				"dweb:/ipfs/QmRjkL98R2Yan28z5HTPMjD2mEAZmJUFY2Uu5Jgypd7tma"
 			]
 		}
 	},

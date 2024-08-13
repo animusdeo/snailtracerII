@@ -62,19 +62,15 @@ contract SnailTracer {
         ));
     }
 
-    function render(int128 spp) public view returns (int128[] memory) {
-        int128[] memory imageBuffer = new int128[](uint256(width.toUInt()) * uint256(height.toUInt()) * 3);
-        uint256 index = 0;
+    event Pixel(int128, int128, int128);
+
+    function render(int128 spp) public {
         for (int128 y = height - 1; y >= 0; y--) {
             for (int128 x = 0; x < width; x++) {
                 Vector3D.Vector memory color = trace(x, y, spp);
-                imageBuffer[index] = color.x;
-                imageBuffer[index + 1] = color.y;
-                imageBuffer[index + 2] = color.z;
-                index += 3;
+                emit Pixel(color.x, color.y, color.z);
             }
         }
-        return imageBuffer;
     }
 
     function trace(int128 x, int128 y, int128 spp) internal view returns (Vector3D.Vector memory color) {
