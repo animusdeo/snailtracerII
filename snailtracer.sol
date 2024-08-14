@@ -96,24 +96,6 @@ contract SnailTracer {
         return 1103515245 * seed + 12345;
     }
 
-    struct Ray {
-        Vector3D.Vector origin;
-        Vector3D.Vector direction;
-        int128 depth;
-        bool refract;
-    }
-
-    enum Material { Diffuse, Specular }
-
-    struct Triangle {
-        Vector3D.Vector a;
-        Vector3D.Vector b;
-        Vector3D.Vector c;
-        Vector3D.Vector normal;
-        Vector3D.Vector emission;
-        Vector3D.Vector color;
-        Material reflection;
-    }
 
     function radiance(Ray memory ray, uint32 seed) internal view returns (Vector3D.Vector memory) {
         if (ray.depth > 10) {
@@ -226,5 +208,24 @@ contract SnailTracer {
             }
         }
         return (dist, p, id);
+    }
+    
+    struct Ray {
+        Vector3D.Vector origin;
+        Vector3D.Vector direction;
+        int128 depth;
+        bool refract;
+    }
+
+    enum Material { Diffuse, Specular }
+
+    struct Triangle {
+        Vector3D.Vector a;
+        Vector3D.Vector b;
+        Vector3D.Vector c;
+        Vector3D.Vector normal;
+        Vector3D.Vector emission;
+        Vector3D.Vector color;
+        Material reflection;
     }
 }
