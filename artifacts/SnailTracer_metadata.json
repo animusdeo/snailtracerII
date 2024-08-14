@@ -11,6 +11,31 @@
 				"type": "constructor"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "int128",
+						"name": "",
+						"type": "int128"
+					},
+					{
+						"indexed": false,
+						"internalType": "int128",
+						"name": "",
+						"type": "int128"
+					},
+					{
+						"indexed": false,
+						"internalType": "int128",
+						"name": "",
+						"type": "int128"
+					}
+				],
+				"name": "Pixel",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "int128",
@@ -19,14 +44,8 @@
 					}
 				],
 				"name": "render",
-				"outputs": [
-					{
-						"internalType": "int128[]",
-						"name": "",
-						"type": "int128[]"
-					}
-				],
-				"stateMutability": "view",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -59,35 +78,27 @@
 	},
 	"sources": {
 		"Math.sol": {
-			"keccak256": "0x4d9a09340d838c9344512d2096c0d6cfb4a6c06f029a7f412ca9e01fcf1332b7",
+			"keccak256": "0x20427af7160cc576bd00459c7b63e7e6c182a0752dca62e885c52fe40ae65e7f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://90a221e8b6c1705af7fb59c42f9ae240920465b041d89bb6a91aeefde35bc0f5",
-				"dweb:/ipfs/QmRe4sTKaTCBYGzfXXFkUk4JTATcrtNURmp7ucePUErdzG"
+				"bzz-raw://e703c2abf917d0ae603dce27dec1315313ddcf97d7cc8e7cac65e54c8d04bb5d",
+				"dweb:/ipfs/Qmc3NSGLcDMyt3LjsyUr7pzGCpAfjVHBmJxf4cqVD9DEDk"
 			]
 		},
 		"Vector3D.sol": {
-			"keccak256": "0x288e7b2df44fc7a1be89fb550094e32baa4241678211fd39066f0ec0bd8c4207",
+			"keccak256": "0xa37c1df10b22d865a307e65320884befdc0341cc843b987cd5da49d2e9db5367",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://dcfafdb3bd162814f842fc825267824ab299293b6380d04323f13de7c01fda31",
-				"dweb:/ipfs/QmUaMBaZxnPMVvrdAZKPnQYpi75gWLpPbqWgNrzdVbT41m"
-			]
-		},
-		"abdk-libraries-solidity/ABDKMath64x64.sol": {
-			"keccak256": "0x1364fdc24192b982f647c7fc68dcb2f6fc1b5e201843e773144bd23a76cb3b97",
-			"license": "BSD-4-Clause",
-			"urls": [
-				"bzz-raw://490712cc07db32f274899b17aade9c975f06010848c21500b8a5ead6898e09c7",
-				"dweb:/ipfs/QmZMPKjDgwCFSGdLWJW6g5E7hDLByA9hNjXzAwJ4GKTZvN"
+				"bzz-raw://8306f9f180c08610e88f4ba88c7fd3e6f33e7b75ddbfcb7dea00f9c9c7d85b1d",
+				"dweb:/ipfs/QmbMi6EQBKMCwCpWmXUhardWXgPZjYbDr77WSWtzWMtCaY"
 			]
 		},
 		"snailtracer.sol": {
-			"keccak256": "0x2eb37d9772143b3c66b86430b2e14665a1d8f49b4b45c988112e9f5ccc33d853",
+			"keccak256": "0x011e1d1bef9564dd803e7db569e85981d1614adf9fa7e2beea644804fd1cbca9",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://c8e1d04cd788864731f193ea2474dd498c05ae71969f133c7caeb5b5827df043",
-				"dweb:/ipfs/QmRjkL98R2Yan28z5HTPMjD2mEAZmJUFY2Uu5Jgypd7tma"
+				"bzz-raw://d352c1b1b0273b26bbfc637e5e413ea308684140be5609f2b7f8ad7e7f4886bf",
+				"dweb:/ipfs/Qmcg5jrg5JeLT6bmR3YkfUDmERXHpXzGsrqHgWteWDmhwF"
 			]
 		}
 	},

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.16;
-import "abdk-libraries-solidity/ABDKMath64x64.sol";
+import "./Math.sol";
 
 library Vector3D {
     struct Vector {
@@ -11,95 +11,79 @@ library Vector3D {
 
     function add(Vector memory u, Vector memory v) internal pure returns (Vector memory) {
         return Vector(
-            ABDKMath64x64.add(u.x, v.x), 
-            ABDKMath64x64.add(u.y, v.y), 
-            ABDKMath64x64.add(u.z, v.z)
+            u.x + v.x,
+            u.y + v.y,
+            u.z + v.z
         );
     }
 
     function sub(Vector memory u, Vector memory v) internal pure returns (Vector memory) {
         return Vector(
-            ABDKMath64x64.sub(u.x, v.x), 
-            ABDKMath64x64.sub(u.y, v.y), 
-            ABDKMath64x64.sub(u.z, v.z)
+            u.x - v.x,
+            u.y - v.y,
+            u.z - v.z
         );
     }
 
     function mul(Vector memory v, int128 m) internal pure returns (Vector memory) {
         return Vector(
-            ABDKMath64x64.mul(v.x, m), 
-            ABDKMath64x64.mul(v.y, m), 
-            ABDKMath64x64.mul(v.z, m)
+            v.x * m / 1e6, // Adjust scaling factor as per the `SnailTracer` contract
+            v.y * m / 1e6,
+            v.z * m / 1e6
         );
     }
 
     function mul(Vector memory u, Vector memory v) internal pure returns (Vector memory) {
         return Vector(
-            ABDKMath64x64.mul(u.x, v.x), 
-            ABDKMath64x64.mul(u.y, v.y), 
-            ABDKMath64x64.mul(u.z, v.z)
+            u.x * v.x / 1e6, // Adjust scaling factor as per the `SnailTracer` contract
+            u.y * v.y / 1e6,
+            u.z * v.z / 1e6
         );
     }
 
     function div(Vector memory v, int128 d) internal pure returns (Vector memory) {
         return Vector(
-            ABDKMath64x64.div(v.x, d), 
-            ABDKMath64x64.div(v.y, d), 
-            ABDKMath64x64.div(v.z, d)
+            v.x * 1e6 / d, // Adjust scaling factor as per the `SnailTracer` contract
+            v.y * 1e6 / d,
+            v.z * 1e6 / d
         );
     }
 
     function dot(Vector memory u, Vector memory v) internal pure returns (int128) {
-        return ABDKMath64x64.add(
-            ABDKMath64x64.add(
-                ABDKMath64x64.mul(u.x, v.x),
-                ABDKMath64x64.mul(u.y, v.y)
-            ),
-            ABDKMath64x64.mul(u.z, v.z)
-        );
+        return (u.x * v.x + u.y * v.y + u.z * v.z) / 1e6;
     }
 
     function cross(Vector memory u, Vector memory v) internal pure returns (Vector memory) {
         return Vector(
-            ABDKMath64x64.sub(ABDKMath64x64.mul(u.y, v.z), ABDKMath64x64.mul(u.z, v.y)),
-            ABDKMath64x64.sub(ABDKMath64x64.mul(u.z, v.x), ABDKMath64x64.mul(u.x, v.z)),
-            ABDKMath64x64.sub(ABDKMath64x64.mul(u.x, v.y), ABDKMath64x64.mul(u.y, v.x))
+            (u.y * v.z - u.z * v.y) / 1e6,
+            (u.z * v.x - u.x * v.z) / 1e6,
+            (u.x * v.y - u.y * v.x) / 1e6
         );
     }
 
     function norm(Vector memory v) internal pure returns (Vector memory) {
-        int128 length = ABDKMath64x64.sqrt(
-            ABDKMath64x64.add(
-                ABDKMath64x64.add(
-                    ABDKMath64x64.mul(v.x, v.x),
-                    ABDKMath64x64.mul(v.y, v.y)
-                ),
-                ABDKMath64x64.mul(v.z, v.z)
-            )
-        );
+        int128 length = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
         return Vector(
-            ABDKMath64x64.div(v.x, length),
-            ABDKMath64x64.div(v.y, length),
-            ABDKMath64x64.div(v.z, length)
+            v.x * 1e6 / length,
+            v.y * 1e6 / length,
+            v.z * 1e6 / length
         );
     }
 
     function clamp(Vector memory v) internal pure returns (Vector memory) {
         return Vector(
-            clamp(v.x), 
-            clamp(v.y), 
+            clamp(v.x),
+            clamp(v.y),
             clamp(v.z)
         );
     }
 
     function clamp(int128 x) internal pure returns (int128) {
-        int128 zero = ABDKMath64x64.fromInt(0);
-        int128 one = ABDKMath64x64.fromInt(1);
-        if (x < zero) {
-            return zero;
+        if (x < 0) {
+            return 0;
         }
-        if (x > one) {
-            return one;
+        if (x > 1e6) { // Clamp to the range [0, 1e6] as per the `SnailTracer` contract
+            return 1e6;
         }
         return x;
     }
