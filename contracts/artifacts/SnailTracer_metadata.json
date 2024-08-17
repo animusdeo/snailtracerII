@@ -1,0 +1,106 @@
+{
+	"compiler": {
+		"version": "0.8.16+commit.07a7930e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "int128",
+						"name": "",
+						"type": "int128"
+					},
+					{
+						"indexed": false,
+						"internalType": "int128",
+						"name": "",
+						"type": "int128"
+					},
+					{
+						"indexed": false,
+						"internalType": "int128",
+						"name": "",
+						"type": "int128"
+					}
+				],
+				"name": "Pixel",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int128",
+						"name": "spp",
+						"type": "int128"
+					}
+				],
+				"name": "render",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/snailtracer.sol": "SnailTracer"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": [],
+		"viaIR": true
+	},
+	"sources": {
+		"contracts/lib/Math.sol": {
+			"keccak256": "0x20427af7160cc576bd00459c7b63e7e6c182a0752dca62e885c52fe40ae65e7f",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://e703c2abf917d0ae603dce27dec1315313ddcf97d7cc8e7cac65e54c8d04bb5d",
+				"dweb:/ipfs/Qmc3NSGLcDMyt3LjsyUr7pzGCpAfjVHBmJxf4cqVD9DEDk"
+			]
+		},
+		"contracts/lib/Vector3D.sol": {
+			"keccak256": "0xa37c1df10b22d865a307e65320884befdc0341cc843b987cd5da49d2e9db5367",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://8306f9f180c08610e88f4ba88c7fd3e6f33e7b75ddbfcb7dea00f9c9c7d85b1d",
+				"dweb:/ipfs/QmbMi6EQBKMCwCpWmXUhardWXgPZjYbDr77WSWtzWMtCaY"
+			]
+		},
+		"contracts/snailtracer.sol": {
+			"keccak256": "0x296c16cf82112c3bcd407b9967a7ef021be1f7f641e3886712d48855f5f444c3",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://3494a57668ec90648c68b328e0ddb739c0c80c81d561f3eb93d63b8043b7dfce",
+				"dweb:/ipfs/QmUGV3rTBUgv5aqtvyaakw3xNDhH9momZ7d19A327zrBtS"
+			]
+		}
+	},
+	"version": 1
+}
