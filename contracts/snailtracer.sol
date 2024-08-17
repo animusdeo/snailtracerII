@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.16;
 
-import "./Vector3D.sol";
-import "./Math.sol";
+import "./lib/Vector3D.sol";
+import "./lib/Math.sol";
 
 contract SnailTracer {
     using Vector3D for Vector3D.Vector;
@@ -32,14 +32,11 @@ contract SnailTracer {
             Vector3D.Vector(56500000, 25740000, 78000000), // Vertex A
             Vector3D.Vector(73000000, 25740000, 94500000), // Vertex B
             Vector3D.Vector(73000000, 49500000, 78000000), // Vertex C
-            Vector3D.Vector(0, 0, 0),                      // Normal (will be calculated)
             Vector3D.Vector(0, 0, 0),                      // Emission color
             Vector3D.Vector(999000, 999000, 999000),       // Surface color
-            Material.Specular                              // Reflection type
+            Material.Diffuse                              // Reflection type
         );
 
-        // Calculate the triangle surface normal
-        triangle.normal = triangle.b.sub(triangle.a).cross(triangle.c.sub(triangle.a)).norm();
         triangles.push(triangle);
     }
 
@@ -57,7 +54,6 @@ contract SnailTracer {
     function trace(int128 x, int128 y, int128 spp) internal view returns (Vector3D.Vector memory color) {
         uint32 localSeed = uint32(uint256(int256(y)) * uint256(int256(width)) + uint256(int256(x)));
 
-        delete color;
         for (int128 k = 0; k < spp; k++) {
             localSeed = nextRand(localSeed);
             Vector3D.Vector memory pixel = calculatePixel(x, y, localSeed);
@@ -68,9 +64,9 @@ contract SnailTracer {
                 false
             );
 
-            color = color.add(radiance(ray, localSeed).div(spp));
+            color = color.add(radiance(ray, localSeed));
         }
-        return color.clamp().mul(255).div(1e6);
+        return color.div(spp**2).clamp().mul(255).div(1e6);
     }
 
     function calculatePixel(int128 x, int128 y, uint32 seed) internal view returns (Vector3D.Vector memory) {
@@ -86,17 +82,6 @@ contract SnailTracer {
 
         return pixel;
     }
-
-    function rand(uint32 seed) internal pure returns (int128) {
-        uint256 newSeed = 1103515245 * uint256(seed) + 12345;
-        return int128(int256(newSeed % (2**32)));
-    }
-
-    function nextRand(uint32 seed) internal pure returns (uint32) {
-        return 1103515245 * seed + 12345;
-    }
-
-
     function radiance(Ray memory ray, uint32 seed) internal view returns (Vector3D.Vector memory) {
         if (ray.depth > 10) {
             return Vector3D.Vector(0, 0, 0);
@@ -125,6 +110,22 @@ contract SnailTracer {
         }
 
         return emission.add(color.mul(radiance(ray, triangle, dist, seed)).div(1e6));
+    }
+
+    function traceray(Ray memory ray) internal view returns (int128, Triangle memory, int128) {
+        int128 dist = 0;
+        Triangle memory p;
+        int128 id;
+
+        for (uint256 i = 0; i < triangles.length; i++) {
+            int128 d = intersect(triangles[i], ray);
+            if (d > 0 && (dist == 0 || d < dist)) {
+                dist = d;
+                p = triangles[i];
+                id = int128(int256(i));
+            }
+        }
+        return (dist, p, id);
     }
 
     function radiance(Ray memory ray, Triangle memory obj, int128 dist, uint32 seed) internal view returns (Vector3D.Vector memory) {
@@ -169,7 +170,7 @@ contract SnailTracer {
 
         // Bail out if ray is parallel to the triangle
         int128 det = e1.dot(p) / 1e6;
-        if (det > -1000 && det < 1000) {
+        if (det > -1e3 && det < 1e3) {
             return 0;
         }
         // Calculate and test the 'u' parameter
@@ -188,33 +189,38 @@ contract SnailTracer {
         }
         // Calculate and return the distance
         int128 dist = e2.dot(q) / det;
-        if (dist < 1000) {
+        if (dist < 1e3) {
             return 0;
         }
         return dist;
     }
 
-    function traceray(Ray memory ray) internal view returns (int128, Triangle memory, int128) {
-        int128 dist = 0;
-        Triangle memory p;
-        int128 id;
+    function intersect(Sphere memory s, Ray memory r) internal pure returns (int128) {
+        Vector3D.Vector memory op = s.center.sub(r.origin);
 
-        for (uint256 i = 0; i < triangles.length; i++) {
-            int128 d = intersect(triangles[i], ray);
-            if (d > 0 && (dist == 0 || d < dist)) {
-                dist = d;
-                p = triangles[i];
-                id = int128(int256(i));
-            }
+        int128 b = op.dot(r.direction) / 1e6;
+        int128 det = b*b - op.dot(op) + s.radius**2;
+
+        // Bail out if ray misses sphere
+        if (det < 0) {
+            return 0;
         }
-        return (dist, p, id);
+        // Calculate the closest intersection point
+        det = Math.sqrt(det);
+        if (b - det > 1e3) {
+            return b - det;
+        }
+        if (b + det > 1e3) {
+            return b + det;
+        }
+        return 0;
     }
     
     struct Ray {
         Vector3D.Vector origin;
         Vector3D.Vector direction;
-        int128 depth;
-        bool refract;
+        int128          depth;
+        bool            refract;
     }
 
     enum Material { Diffuse, Specular }
@@ -223,9 +229,25 @@ contract SnailTracer {
         Vector3D.Vector a;
         Vector3D.Vector b;
         Vector3D.Vector c;
-        Vector3D.Vector normal;
         Vector3D.Vector emission;
         Vector3D.Vector color;
-        Material reflection;
+        Material        reflection;
+    }
+
+    struct Sphere {
+        int128          radius;
+        Vector3D.Vector center;
+        Vector3D.Vector emission;
+        Vector3D.Vector color;
+        Material        reflection;
+    }
+
+    function rand(uint32 seed) internal pure returns (int128) {
+        uint256 newSeed = 1103515245 * uint256(seed) + 12345;
+        return int128(int256(newSeed % (2**32)));
+    }
+
+    function nextRand(uint32 seed) internal pure returns (uint32) {
+        return 1103515245 * seed + 12345;
     }
 }
