@@ -95,7 +95,10 @@ contract SnailTracer {
         Vector3D.Vector memory color = triangle.color;
         Vector3D.Vector memory emission = triangle.emission;
 
-        int128 ref = color.z;
+        int128 ref = 1;
+        if (color.z > ref) {
+            ref = color.z;
+        }
         if (color.y > ref) {
             ref = color.y;
         }
